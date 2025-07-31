@@ -6,7 +6,8 @@ app = Flask("Emotion Detection")
 @app.route("/")
 def index():
     return render_template("index.html")
-@app.route("/emotionDetector")
+
+@app.route("/emotionDetector", ["GET", "POST"])
 def display_emotion_detection():
     text = request.args.get["testToAnalyze"]
     text_emotion = emotion_detector(text)
