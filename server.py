@@ -12,14 +12,14 @@ def display_emotion_detection():
     text = request.args.get["testToAnalyze"]
     text_emotion = emotion_detector(text)
 
-    show_response = {
+    show_response = (
     f'"anger": {text_emotion["anger"]},' 
     f'"disgust": {text_emotion["disgust"]},'
     f'"fear": {text_emotion["fear"]},'
     f'"joy": {text_emotion["joy"]},'
     f'"sadness": {text_emotion["sadness"]},'
     f'"dominant_emotion": {text_emotion["dominant_emotion"]}'
-    }
+    )
 
     return show_response
 
