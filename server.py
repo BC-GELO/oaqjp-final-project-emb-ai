@@ -1,27 +1,40 @@
-from flask import Flask, render_template, request
+"""
+This is the server
+"""
+from flask import Flask, render_template, request, jsonify
 from EmotionDetection import emotion_detector
 
 app = Flask("Emotion Detection")
-
+"""
+this is the Flask app
+"""
 @app.route("/")
 def index():
+    """
+    This display the webpage
+    """
     return render_template("index.html")
 
 @app.route("/emotionDetector")
 def display_emotion_detection():
-    text = request.args.get('testToAnalyze')
-    text_emotion = emotion_detector(text)
-    
-    show_response = (
-    f'"anger": {text_emotion["anger"]},' 
-    f'"disgust": {text_emotion["disgust"]},'
-    f'"fear": {text_emotion["fear"]},'
-    f'"joy": {text_emotion["joy"]},'
-    f'"sadness": {text_emotion["sadness"]},'
-    f'"dominant_emotion": {text_emotion["dominant_emotion"]}'
-    )
+    """
+    This run the emotion program and display the response
+    """
+    text = request.args.get('textToAnalyze')
+    if not text or text.strip() == "":
+        return jsonify({
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None,
+            'error': 'Invalid text! Please try again!'
+        })
 
-    return show_response
+
+    text_emotion = emotion_detector(text)
+    return jsonify(text_emotion)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5013)
