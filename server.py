@@ -11,7 +11,7 @@ def index():
 def display_emotion_detection():
     text = request.args.get('testToAnalyze')
     text_emotion = emotion_detector(text)
-
+    
     show_response = (
     f'"anger": {text_emotion["anger"]},' 
     f'"disgust": {text_emotion["disgust"]},'
@@ -24,4 +24,4 @@ def display_emotion_detection():
     return show_response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
