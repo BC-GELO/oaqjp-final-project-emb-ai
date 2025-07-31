@@ -1,4 +1,4 @@
-from flask import flask, render_template, request
+from flask import Flask, render_template, request
 from EmotionDetection import emotion_detector
 
 app = Flask("Emotion Detection")
@@ -12,12 +12,15 @@ def display_emotion_detection():
     text_emotion = emotion_detector(text)
 
     show_response = {
-    "anger": text_emotion['anger'], 
-    "disgust": text_emotion['disgust'], 
-    "fear": text_emotion['fear'],
-    "joy": text_emotion['joy'], 
-    "sadness": text_emotion['sadness'], 
-    "dominant_emotion": text_emotion['dominant_emotion']
+    f'"anger": {text_emotion["anger"]},' 
+    f'"disgust": {text_emotion["disgust"]},'
+    f'"fear": {text_emotion["fear"]},'
+    f'"joy": {text_emotion["joy"]},'
+    f'"sadness": {text_emotion["sadness"]},'
+    f'"dominant_emotion": {text_emotion["dominant_emotion"]}'
     }
 
     return show_response
+
+if __name__ == '__main__':
+    app.run(debug=True)
